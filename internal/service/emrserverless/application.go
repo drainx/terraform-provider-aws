@@ -731,7 +731,7 @@ func expandInitialCapacityConfig(tfMap map[string]interface{}) types.InitialCapa
 		apiObject.WorkerCount = int64(v)
 	}
 
-	if v, ok := tfMap["worker_configuration"].([]interface{}); ok && v[0] != nil {
+	if v, ok := tfMap["worker_configuration"].([]interface{}); ok && len(v) > 0 {
 		apiObject.WorkerConfiguration = expandWorkerResourceConfig(v[0].(map[string]interface{}))
 	}
 
