@@ -173,6 +173,15 @@ func TestAccEMRServerlessApplication_initialCapacity(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "initial_capacity.0.initial_capacity_config.0.worker_configuration.0.memory", "10 GB"),
 				),
 			},
+			{
+				Config: testAccApplicationConfig_initialCapacity(rName, "Optional worker_configuration"),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckApplicationExists(ctx, resourceName, &application),
+					resource.TestCheckResourceAttr(resourceName, "initial_capacity.#", "1"),
+					resource.TestCheckResourceAttr(resourceName, "initial_capacity.0.initial_capacity_type", "HiveDriver"),
+					resource.TestCheckResourceAttr(resourceName, "initial_capacity.0.initial_capacity_config.#", "1"),
+				),
+			},
 		},
 	})
 }
